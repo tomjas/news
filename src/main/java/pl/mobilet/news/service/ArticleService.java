@@ -43,7 +43,7 @@ public class ArticleService {
         return repository.findAll(params.getLimit(), params.getOffset());
     }
 
-    private void validateInput(RequestParams params) {
+    void validateInput(RequestParams params) {
         Integer limit = params.getLimit();
         if (limit != null) {
             if (limit < 1) {

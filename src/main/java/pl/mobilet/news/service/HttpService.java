@@ -24,7 +24,6 @@ import java.util.List;
 @Slf4j
 public class HttpService {
 
-
     @Value("${x.api.key}")
     private String xApiKey;
 
@@ -76,7 +75,7 @@ public class HttpService {
                 .build();
     }
 
-    private void validateResponse(ResponseDto responseDto) {
+    private static void validateResponse(ResponseDto responseDto) {
         if (StringUtils.equals(ERROR, responseDto.getStatus())) {
             log.error("{}->{}", responseDto.getCode(), responseDto.getMessage());
             throw new DownloadArticlesException(responseDto.getMessage());

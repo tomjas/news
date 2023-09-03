@@ -2,6 +2,7 @@ package pl.mobilet.news.util;
 
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
+import org.apache.commons.lang3.StringUtils;
 
 import java.time.Instant;
 import java.time.LocalDateTime;
@@ -15,6 +16,9 @@ public final class NewsUtils {
     public static final String NEWSAPI_DATE_FORMAT = "yyyy-MM-dd'T'HH:mm:ss'Z'";
 
     public static Instant stringToInstant(String stringDate) {
+        if (StringUtils.isBlank(stringDate)) {
+            return null;
+        }
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern(NEWSAPI_DATE_FORMAT);
         LocalDateTime localDateTime = LocalDateTime.parse(stringDate, dateTimeFormatter);
         ZonedDateTime zonedDateTime = localDateTime.atZone(ZoneOffset.UTC);
