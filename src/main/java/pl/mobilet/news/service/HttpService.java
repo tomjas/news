@@ -1,5 +1,6 @@
 package pl.mobilet.news.service;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -23,7 +24,7 @@ import java.util.List;
 @Slf4j
 public class HttpService {
 
-    public static final int CONNECTION_TIMEOUT = 20;
+
     @Value("${x.api.key}")
     private String xApiKey;
 
@@ -32,6 +33,7 @@ public class HttpService {
 
     private static final String ERROR = "error";
     private static final int NUMBER_OF_PAGES = 5;
+    private static final int CONNECTION_TIMEOUT = 20;
     public static final String PAGE = "&page=";
     public static final String X_API_KEY = "X-Api-Key";
 
@@ -45,14 +47,19 @@ public class HttpService {
         for (int i = 1; i <= NUMBER_OF_PAGES; i++) {
             request = getHttpRequest(i);
             response = client.send(request, HttpResponse.BodyHandlers.ofString());
-            ObjectMapper mapper = new ObjectMapper();
-            ResponseDto responseDto = mapper.readValue(response.body(), ResponseDto.class);
-            validateResponse(responseDto);
+            ResponseDto responseDto = getResponseDto(response);
             dtos.addAll(responseDto.getArticles());
         }
         log.debug("Number of downloaded articles {}", dtos.size());
         return dtos;
 
+    }
+
+    private ResponseDto getResponseDto(HttpResponse<String> response) throws JsonProcessingException {
+        ObjectMapper mapper = new ObjectMapper();
+        ResponseDto responseDto = mapper.readValue(response.body(), ResponseDto.class);
+        validateResponse(responseDto);
+        return responseDto;
     }
 
     private HttpRequest getHttpRequest(int PAGE_NUMBER) throws URISyntaxException {
