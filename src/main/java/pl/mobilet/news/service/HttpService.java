@@ -32,7 +32,7 @@ public class HttpService {
     private String url;
 
     private static final String ERROR = "error";
-    private static final int NUMBER_OF_PAGES = 5;
+    private static final int NUMBER_OF_PAGES = 3;
     private static final int CONNECTION_TIMEOUT = 20;
     public static final String PAGE = "&page=";
     public static final String X_API_KEY = "X-Api-Key";
