@@ -6,7 +6,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class ArticleDto extends ResponseDto {
+public class ArticleDto {
 
     private SourceDto source;
     private String author;
