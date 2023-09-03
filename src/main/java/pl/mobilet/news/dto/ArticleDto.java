@@ -1,5 +1,6 @@
 package pl.mobilet.news.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -15,6 +16,16 @@ public class ArticleDto extends ResponseDto {
     private String urlToImage;
     private String publishedAt;
     private String content;
+
+    @JsonIgnore
+    public String getSourceId() {
+        return getSource() != null ? getSource().getId() : null;
+    }
+
+    @JsonIgnore
+    public String getSourceName() {
+        return getSource() != null ? getSource().getName() : null;
+    }
 
     @Getter
     @Setter

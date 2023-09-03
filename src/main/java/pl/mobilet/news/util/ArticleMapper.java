@@ -17,17 +17,14 @@ public final class ArticleMapper {
 
     public static Article map(ArticleDto dto) {
         return Article.builder()
-                //TODO check for null?
-                .sourceId(dto.getSource().getId())
-                //TODO check for null?
-                .sourceName(dto.getSource().getName())
+                .sourceId(dto.getSourceId())
+                .sourceName(dto.getSourceName())
                 .author(dto.getAuthor())
                 .title(dto.getTitle())
                 .description(dto.getDescription())
                 .url(dto.getUrl())
                 .urlToImage(dto.getUrlToImage())
-                //TODO convert String to Timestamp UTC
-//                .publishedAt(dto.getPublishedAt())
+                .publishedAt(NewsUtils.stringToInstant(dto.getPublishedAt()))
                 .content(dto.getContent())
                 .build();
     }
