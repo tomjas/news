@@ -25,7 +25,7 @@ public class ArticleService {
     private static final int DEFAULT_LIMIT = 100;
     private static final int DEFAULT_OFFSET = 0;
 
-    @Transactional
+    @Transactional(rollbackFor = {URISyntaxException.class, IOException.class, InterruptedException.class})
     public void synchronize() {
         try {
             List<ArticleDto> dtos = httpService.getArticles();
