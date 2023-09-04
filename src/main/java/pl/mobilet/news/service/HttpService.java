@@ -75,7 +75,7 @@ public class HttpService {
                 .build();
     }
 
-    private static void validateResponse(ResponseDto responseDto) {
+    void validateResponse(ResponseDto responseDto) {
         if (StringUtils.equals(ERROR, responseDto.getStatus())) {
             log.error("{}->{}", responseDto.getCode(), responseDto.getMessage());
             throw new DownloadArticlesException(responseDto.getMessage());
